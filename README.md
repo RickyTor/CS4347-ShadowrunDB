@@ -1,7 +1,7 @@
 # CS4347-ShadowrunDB
 CS4347 Project - Shadowrun Character Database
 
-Download and Install: https://dev.mysql.com/downloads/windows/
+Download and Install mySQL: https://dev.mysql.com/downloads/windows/
 
 ## Guide:
 Based on this: https://www.elated.com/mysql-for-absolute-beginners/
