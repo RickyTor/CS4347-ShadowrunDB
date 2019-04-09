@@ -10,3 +10,5 @@ show databases; -- show all databases in server
 show tables; -- show tables
 
 explain [table name]; -- show attribute information for table
+
+Also make sure if you comment (-- like this) to put a space
