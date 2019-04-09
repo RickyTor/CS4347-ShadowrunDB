@@ -9,7 +9,7 @@ show databases; -- show all databases in server
 
 show tables; -- show tables
 
-explain <table name>; -- show attribute information for table
+explain [table name]; -- show attribute information for table
 
 Create Script:
 	1) Type your queries into a .sql file
