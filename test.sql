@@ -4,7 +4,7 @@ CREATE TABLE users -- make new table (or replace the one just dropped)
 (
 	username	varchar(100) NOT NULL, -- Unique name for each user
 	password	varchar(100) NOT NULL, -- Used to authorize access
-	PRIMARY KEY	(id)
+	PRIMARY KEY	(username)
 );
 
 # Comments can be like this
