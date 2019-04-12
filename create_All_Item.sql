@@ -32,9 +32,7 @@ CREATE TABLE MELEE
 	Availability	integer,					-- how hard to find item
 	Cost			integer,					-- amount needed to purchase
 	Legality		varchar(1),					-- Legal (L), Illegal (I), Requires License (R),
-	/* This doesn't seem to work with mySQL?
-	,CONSTRAINT check_Legal CHECK (Legality IN ('L', 'I', 'R')) -- only these values can be used
-	*/
+	/*TODO: Constrain to L,I,R*/
 	SkillUsed		varchar(1),
 	/*TODO: Constrain to R, A, B, C, E, G, H, L, P, T, U, N*/
 	Damage			integer,
@@ -52,9 +50,7 @@ CREATE TABLE RANGED
 	Availability	integer,					-- how hard to find item
 	Cost			integer,					-- amount needed to purchase
 	Legality		varchar(1),					-- Legal (L), Illegal (I), Requires License (R),
-	/* This doesn't seem to work with mySQL?
-	,CONSTRAINT check_Legal CHECK (Legality IN ('L', 'I', 'R')) -- only these values can be used
-	*/
+	/*TODO: Constrain to L,I,R*/
 	SkillUsed		varchar(1),
 	/*TODO: Constrain to R, A, B, C, E, G, H, L, P, T, U, N*/
 	Damage			integer,
@@ -69,3 +65,27 @@ CREATE TABLE RANGED
 	AmmoHolder		varchar(1),
 	PRIMARY KEY (Name)
 );
+
+DROP TABLE IF EXISTS DRONE;
+CREATE TABLE DRONE
+(
+	Name			varchar(80)		NOT NULL,
+	/*TODO: Weapon_FK	varchar(80)??*/
+	Legality		varchar(1),
+	Description		varchar(1000),
+	Availability	integer,
+	Cost			integer,
+	Pilot			integer,		
+	Armor			integer,
+	Body			integer,
+	Acceleration	integer,
+	Speed			integer,		
+	Handling		integer,
+	Sensor			integer,				-- Sensor stat	
+	Seats			integer DEFAULT 0, 		-- Number of seats drone has (if > 1 it is a vehicle)
+	Damage			integer DEFAULT 0,		-- Amount of damage taken by drone
+	PRIMARY KEY (Name)
+);
+
+
+
