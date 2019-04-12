@@ -94,12 +94,41 @@ CREATE TABLE UNIQUE_ITEM
 	Character_FK	varchar(160),		-- Owner of unique item, made of character name and creator's username
 	Rating			integer,			-- how powerful or useful
 	Capacity		integer,			-- a measurement of how many subitems can be held
-	CapacityType	Varchar(10)			
-	Notes			varchar(500)		-- notes on that particular item
+	CapacityType	Varchar(10),			
+	Notes			varchar(500),		-- notes on that particular item
 	PRIMARY KEY (Item_FK, Character_FK)
 	-- FOREIGN KEY (Character_FK) REFERENCES CHARACTER(Username, Name);
 	-- FOREIGN KEY (Item_FK) REFERENCES ITEM(Name);
 );
 
+DROP TABLE IF EXISTS AUGMENTATION;
+CREATE TABLE AUGMENTATION
+(
+	Item_FK			varchar(80),		-- Item the augmentation is based off
+	Character_FK	varchar(160),		-- Owner of aug, made of character name and creator's username
+	Rating			integer,			-- how powerful or useful
+	Capacity		integer,			-- a measurement of how many subitems can be held
+	CapacityType	varchar(10),			
+	Notes			varchar(500),		-- notes on that particular item
+	EssenceCost		float,				-- cost for augmentation
+	Grade			varchar(10),		-- tier of aug, which effects essence cost
+	PRIMARY KEY (Item_FK, Character_FK)
+	-- FOREIGN KEY (Character_FK) REFERENCES CHARACTER(Username, Name);
+	-- FOREIGN KEY (Item_FK) REFERENCES ITEM(Name);
+);
+
+DROP TABLE IF EXISTS SUBITEM;
+CREATE TABLE SUBITEM
+(
+	Name			varchar(80)		NOT NULL,
+	Legality		varchar(1),
+	/* TO DO: CONSTRAINT*/
+	Description		varchar(1000),
+	Availability	integer,
+	Cost			integer,
+	CapacityUsed	integer,
+	CapacityType	varchar(10),
+	PRIMARY KEY (Name)
+);
 
 
