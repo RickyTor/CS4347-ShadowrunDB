@@ -6,7 +6,7 @@ CREATE TABLE INVENTORY -- make new table (or replace the one just dropped)
 	Item_FK			varchar(80) 	NOT NULL, -- Item name
 	PRIMARY KEY	(Character_FK, Item_FK) -- inventory will link 1 character with N items
 	/*, TODO: Finish character table */
-	-- FOREIGN KEY (Character_FK) REFERENCES PLAYER_CHARACTER(Username, Name);
+	-- FOREIGN KEY (Character_FK) REFERENCES CHARACTER(Username, Name);
 	-- FOREIGN KEY (Item_FK) REFERENCES ITEM(Name);
 );
 
@@ -85,6 +85,20 @@ CREATE TABLE DRONE
 	Seats			integer DEFAULT 0, 		-- Number of seats drone has (if > 1 it is a vehicle)
 	Damage			integer DEFAULT 0,		-- Amount of damage taken by drone
 	PRIMARY KEY (Name)
+);
+
+DROP TABLE IF EXISTS UNIQUE_ITEM;		-- A character's own version of another item
+CREATE TABLE UNIQUE_ITEM
+(
+	Item_FK			varchar(80),		-- Item the unique item is based off
+	Character_FK	varchar(160),		-- Owner of unique item, made of character name and creator's username
+	Rating			integer,			-- how powerful or useful
+	Capacity		integer,			-- a measurement of how many subitems can be held
+	CapacityType	Varchar(10)			
+	Notes			varchar(500)		-- notes on that particular item
+	PRIMARY KEY (Item_FK, Character_FK)
+	-- FOREIGN KEY (Character_FK) REFERENCES CHARACTER(Username, Name);
+	-- FOREIGN KEY (Item_FK) REFERENCES ITEM(Name);
 );
 
 
