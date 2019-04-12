@@ -4,7 +4,7 @@ CREATE TABLE INVENTORY -- make new table (or replace the one just dropped)
 (
 	Character_FK	varchar(160) 	NOT NULL, -- Character's key is charactername(80) + username(80)
 	Item_FK			varchar(80) 	NOT NULL, -- Item name
-	PRIMARY KEY	(character_FK, item_FK) -- inventory will link 1 character with N items
+	PRIMARY KEY	(Character_FK, Item_FK) -- inventory will link 1 character with N items
 	/*, TODO: Finish character table */
 	-- FOREIGN KEY (Character_FK) REFERENCES PLAYER_CHARACTER(Username, Name);
 	-- FOREIGN KEY (Item_FK) REFERENCES ITEM(Name);
@@ -17,7 +17,8 @@ CREATE TABLE ITEM -- make new table (or replace the one just dropped)
 	Description		varchar(1000), 				-- what the item does
 	Availability	integer,					-- how hard to find item
 	Cost			integer,					-- amount needed to purchase
-	Legality		varchar(1)					-- Legal (L), Illegal (I), Requires License (R),
+	Legality		varchar(1),					-- Legal (L), Illegal (I), Requires License (R),
+	PRIMARY KEY (Name)
 	/* This doesn't seem to work with mySQL?
 	,CONSTRAINT check_Legal CHECK (Legality IN ('L', 'I', 'R')) -- only these values can be used
 	*/
@@ -26,5 +27,45 @@ CREATE TABLE ITEM -- make new table (or replace the one just dropped)
 DROP TABLE IF EXISTS MELEE;
 CREATE TABLE MELEE
 (
-	Name			varchar(80)
+	Name			varchar(80) 	NOT NULL, 	-- unique name for item
+	Description		varchar(1000), 				-- what the item does
+	Availability	integer,					-- how hard to find item
+	Cost			integer,					-- amount needed to purchase
+	Legality		varchar(1),					-- Legal (L), Illegal (I), Requires License (R),
+	/* This doesn't seem to work with mySQL?
+	,CONSTRAINT check_Legal CHECK (Legality IN ('L', 'I', 'R')) -- only these values can be used
+	*/
+	SkillUsed		varchar(1),
+	/*TODO: Constrain to R, A, B, C, E, G, H, L, P, T, U, N*/
+	Damage			integer,
+	Accuracy		integer,
+	ArmorPiercing	integer,
+	Reach			integer,
+	PRIMARY KEY (Name)	
+);
+
+DROP TABLE IF EXISTS RANGED;
+CREATE TABLE RANGED
+(
+	Name			varchar(80) 	NOT NULL, 	-- unique name for item
+	Description		varchar(1000), 				-- what the item does
+	Availability	integer,					-- how hard to find item
+	Cost			integer,					-- amount needed to purchase
+	Legality		varchar(1),					-- Legal (L), Illegal (I), Requires License (R),
+	/* This doesn't seem to work with mySQL?
+	,CONSTRAINT check_Legal CHECK (Legality IN ('L', 'I', 'R')) -- only these values can be used
+	*/
+	SkillUsed		varchar(1),
+	/*TODO: Constrain to R, A, B, C, E, G, H, L, P, T, U, N*/
+	Damage			integer,
+	Accuracy		integer,
+	ArmorPiercing	integer,
+	Reach			integer,
+	Mode			integer,
+	BlastRadius		integer,
+	Recoil			integer,
+	Rating			integer,
+	Ammo			integer,
+	AmmoHolder		varchar(1),
+	PRIMARY KEY (Name)
 );
