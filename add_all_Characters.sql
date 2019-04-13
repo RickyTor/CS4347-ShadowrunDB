@@ -44,11 +44,11 @@ CREATE TABLE ACCESSES
 DROP TABLE IF EXISTS AI;
 CREATE TABLE AI
 (
-	MatrixDepth integer, 
-	CoreDamage integer,
-	MatrixPersona varchar(500),
-	CharacterCreator_FK varchar(80) NOT NULL,
-	Character_FK varchar(80) NOT NULL,
+	MatrixDepth 		integer CHECK(MatrixDepth >= 1), 
+	CoreDamage 			integer,
+	MatrixPersona 		varchar(500),
+	CharacterCreator_FK varchar(80) 	NOT NULL,
+	Character_FK 		varchar(80) 	NOT NULL,
 	PRIMARY KEY (Character_FK, CharacterCreator_FK),
 	FOREIGN KEY (CharacterCreator_FK) REFERENCES CHARACTERS(username_FK),
 	FOREIGN KEY (Character_FK) REFERENCES CHARACTERS(Name)
@@ -56,11 +56,11 @@ CREATE TABLE AI
 DROP TABLE IF EXISTS MAGIC_USER;
 CREATE TABLE MAGIC_USER
 (
-	MagicRating integer,
-	InitiationLevel integer,
-	Tradition_FK varchar(80) NOT NULL,
-	CharacterCreator_FK varchar(80) NOT NULL,
-	Character_FK varchar(80) NOT NULL,
+	MagicRating			integer	CHECK(MagicRating >= 1 AND MagicRating <= 6),
+	InitiationLevel 	integer,
+	Tradition_FK	 	varchar(80) NOT NULL,
+	CharacterCreator_FK	varchar(80) NOT NULL,
+	Character_FK 		varchar(80) NOT NULL,
 	PRIMARY KEY (Character_FK, CharacterCreator_FK, Tradition_FK),
 	FOREIGN KEY (CharacterCreator_FK) REFERENCES CHARACTERS(Username_FK),
 	-- FOREIGN KEY (Tradition_FK) REFERENCES TRADITION(Name),
