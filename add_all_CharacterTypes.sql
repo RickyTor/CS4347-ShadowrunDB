@@ -37,6 +37,29 @@ CREATE TABLE CHARACTERS
 	Primary Key (Name, Username_FK),
 	Foreign Key (Username_FK) References USERS(Username)
 );
+DROP TABLE IF EXISTS RACE;
+CREATE TABLE RACE
+(
+	Name varchar(80) not null,
+	RacialAbilities varchar(500),
+	StartingBody integer CHECK(StartingBody >= 1),
+	StartingAgility integer CHECK(StartingAgility >= 1),
+	StartingReaction integer CHECK(StartingReaction >= 1),
+	StartingStrength integer CHECK(StartingStrength >= 1),
+	StartingWillpower integer CHECK(StartingWillpower >= 1),
+	StartingLogic integer CHECK(StartingLogic >= 1),
+	StartingIntuition integer CHECK(StartingIntuition >= 1),
+	StartingCharisma integer CHECK(StartingCharisma >= 1),
+	MaximumBody integer,
+	MaximumAgility integer,
+	MaximumReaction integer,
+	MaximumStrength integer,
+	MaximumWillpower integer,
+	MaximumLogic integer,
+	MaximumIntuition integer,
+	MaximumCharisma integer,
+	Primary Key(Name)
+);
 DROP TABLE IF EXISTS ACCESSES;
 CREATE TABLE ACCESSES
 (
