@@ -131,4 +131,42 @@ CREATE TABLE SUBITEM
 	PRIMARY KEY (Name)
 );
 
+DROP TABLE IF EXISTS PERSONAL_CYBERDECK; -- Inherits from Unique Item
+CREATE TABLE PERSONAL_CYBERDECK
+(
+	Name						varchar(80)		NOT NULL,
+	Character_FK				varchar(160),	-- Owner of aug, made of character name and creator's username
+	Rating						integer, 
+	Capacity					integer,
+	CapacityType				varchar(10),
+	Notes						varchar(500),
+	MatrixPersonaDescription	varchar(500),
+	ModelName_FK				varchar(80),	-- Reference to Cyberdeck Model
+	PRIMARY KEY (Name)
+	-- FOREIGN KEY (ModelName_FK) REFERENCES CYBERDECK_MODEL
+);
+
+DROP TABLE IF EXISTS CYBERDECK_MODEL;
+CREATE TABLE CYBERDECK_MODEL
+(
+	Name				varchar(80)		NOT NULL,
+	Legality			varchar(1),
+	Description			varchar(1000),				-- What the item does
+	Availability		integer,
+	Cost				integer,
+	Array				varchar(4),					-- 4 numbers for attack, sleaze, firewall, or data processing
+	CyberdeckRating		integer,
+	ProgramCapacity		integer,
+	PRIMARY KEY (Name)
+);
+
+DROP TABLE IF EXISTS CONFIGURATOR;
+CREATE TABLE CONFIGURATOR
+(
+	Number			integer			NOT NULL,		-- order in which configurator programs were added
+	Character_FK	varchar(160)	NOT NULL,		
+	PRIMARY KEY (Number, Character_FK)
+	-- ,FOREIGN KEY (Character_FK) REFERENCES CHARACTER(Username, Name);
+);
+
 
