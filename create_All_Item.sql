@@ -18,7 +18,7 @@ CREATE TABLE ITEM -- make new table (or replace the one just dropped)
 	Availability	integer,					-- how hard to find item
 	Cost			integer,					-- amount needed to purchase
 	Legality		varchar(1),					-- Legal (L), Illegal (I), Requires License (R),
-	PRIMARY KEY (Name)
+	PRIMARY KEY (Name),
 	/* Works if you put the , after Primary Key above*/
 	CONSTRAINT check_Legal CHECK (Legality IN ('L', 'I', 'R')) -- only these values can be used
 );
