@@ -19,7 +19,7 @@ CREATE TABLE CHARACTERS
 	Willpower	 	integer CHECK(Willpower >= 1 AND Willpower <= 8),
 	Logic 			integer CHECK(Logic >= 1 AND Logic <= 8),
 	Intuition 		integer CHECK(Intuition >= 1 AND Intuition <= 8),
-	Charisma 		integer CHECK(Charisma >= 1 AND Charisma <= 8),
+	Charisma 		integer CHECK(Charisma >= 1 AND Charisma <= 9),
 	Edge 			integer CHECK(Edge >= 1 AND Edge <= 8),
 	EdgeAvailable 	integer,
 	Essence 		float CHECK(Essence >= 0 AND Essence <= 6),
