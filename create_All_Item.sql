@@ -5,7 +5,7 @@ CREATE TABLE INVENTORY -- make new table (or replace the one just dropped)
 	Character_FK	varchar(80) 	NOT NULL, -- Owning character
 	User_FK			varchar(80)		NOT NULL, -- User of character
 	Item_FK			varchar(80) 	NOT NULL, -- Item name
-	PRIMARY KEY	(Character_FK, Item_FK) -- inventory will link 1 character with N items
+	PRIMARY KEY	(Character_FK, Item_FK, User_FK) -- inventory will link 1 character with N items
 	FOREIGN KEY (Character_FK) REFERENCES CHARACTERS(Name),
 	FOREIGN KEY (User_FK) REFERENCES CHARACTERS(Username_FK),
 	FOREIGN KEY (Item_FK) REFERENCES ITEM(Name)
@@ -96,9 +96,9 @@ CREATE TABLE UNIQUE_ITEM
 	Capacity		integer,			-- a measurement of how many subitems can be held
 	CapacityType	Varchar(10),			
 	Notes			varchar(500),		-- notes on that particular item
-	PRIMARY KEY (Item_FK, Character_FK),
-	FOREIGN KEY (Character_FK) REFERENCES CHARACTERS(Name);
-	FOREIGN KEY (User_FK) REFERENCES CHARACTERS(Username_FK);
+	PRIMARY KEY (Item_FK, Character_FK, User_FK),
+	FOREIGN KEY (Character_FK) REFERENCES CHARACTERS(Name),
+	FOREIGN KEY (User_FK) REFERENCES CHARACTERS(Username_FK),
 	FOREIGN KEY (Item_FK) REFERENCES ITEM(Name);
 );
 
@@ -114,7 +114,7 @@ CREATE TABLE AUGMENTATION
 	Notes			varchar(500),		-- notes on that particular item
 	EssenceCost		float,				-- cost for augmentation
 	Grade			varchar(10),		-- tier of aug, which effects essence cost
-	PRIMARY KEY (Item_FK, Character_FK),
+	PRIMARY KEY (Item_FK, Character_FK, User_FK),
 	FOREIGN KEY (Character_FK) REFERENCES CHARACTERS(Name),
 	FOREIGN KEY (User_FK) REFERENCES CHARACTERS(Username_FK),
 	FOREIGN KEY (Item_FK) REFERENCES ITEM(Name)
@@ -138,15 +138,17 @@ DROP TABLE IF EXISTS PERSONAL_CYBERDECK; -- Inherits from Unique Item
 CREATE TABLE PERSONAL_CYBERDECK
 (
 	Name						varchar(80)		NOT NULL,
-	Character_FK				varchar(160),	-- Owner of aug, made of character name and creator's username
+	Character_FK				varchar(80)	NOT NULL,	-- Owner of aug
+	User_FK						varchar(80)		NOT NULL,
 	Rating						integer, 
 	Capacity					integer,
 	CapacityType				varchar(10),
 	Notes						varchar(500),
 	MatrixPersonaDescription	varchar(500),
 	ModelName_FK				varchar(80),	-- Reference to Cyberdeck Model
-	PRIMARY KEY (Name),
+	PRIMARY KEY (Name, Character_FK, User_FK),
 	FOREIGN KEY (Character_FK) REFERENCES CHARACTERS(Name),
+	FOREIGN KEY (User_FK) REFERENCES CHARACTERS(Username_FK),
 	FOREIGN KEY (ModelName_FK) REFERENCES CYBERDECK_MODEL(Name)
 );
 
@@ -170,7 +172,7 @@ CREATE TABLE CONFIGURATOR
 	Number			integer			NOT NULL,		-- order in which configurator programs were added
 	Character_FK	varchar(80)	NOT NULL,			-- name of character owner
 	User_FK	varchar(80)		NOT NULL,				-- name of user that created character
-	PRIMARY KEY (Number, Character_FK),
+	PRIMARY KEY (Number, Character_FK, User_FK),
 	FOREIGN KEY (Character_FK) REFERENCES CHARACTERS(Name),
 	FOREIGN KEY (User_FK) REFERENCES CHARACTERS(Username_FK)
 );
@@ -185,9 +187,9 @@ CREATE TABLE DECK_CONFIGURATION
 	Sleaze			integer, /*min is 1*/			-- Sleaze stat
 	Firewall		integer, /*min is 1*/			-- Firewall Stat, for defense
 	DataProcessing	integer, /*min is 1*/			-- Used for matrix initiative and actions
-	PRIMARY KEY (Number, Character_FK),
+	PRIMARY KEY (Number, Character_FK, User_FK),
 	FOREIGN KEY (Character_FK) REFERENCES CHARACTERS(Name),
-	FOREIGN KEY (User_FK) REFERENCES CHARACTERS(Username_FK);
+	FOREIGN KEY (User_FK) REFERENCES CHARACTERS(Username_FK)
 );
 
 /*
