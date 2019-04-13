@@ -58,6 +58,25 @@ CREATE TABLE AI
 	FOREIGN KEY (CharacterCreator_FK) REFERENCES CHARACTERS(username_FK),
 	FOREIGN KEY (Character_FK) REFERENCES CHARACTERS(Name)
 );
+DROP TABLE IF Exists TRADITION;
+CREATE TABLE TRADITION
+(
+	Name varchar(80) NOT NULL,
+	Description varchar(1000),
+	DrainResistanceAttr varchar(1),
+	CONSTRAINT check_DrainResistAttr CHECK (DrainResistanceAttr IN ('L', 'I', 'C')),
+	CombatSpiritType varchar(1),
+	CONSTRAINT check_SpiritType CHECK (CombatSpiritType IN ('B', 'M', 'F', 'W', 'A', 'E', 'P', 'T', 'R', 'G')),
+	HealthSpiritType varchar(1),
+	CONSTRAINT check_SpiritType CHECK (HealthSpiritType IN ('B', 'M', 'F', 'W', 'A', 'E', 'P', 'T', 'R', 'G')),
+	ManipulationSpiritType varchar(1),
+	CONSTRAINT check_SpiritType CHECK (ManipulationSpiritType IN ('B', 'M', 'F', 'W', 'A', 'E', 'P', 'T', 'R', 'G')),
+	DetectionSpiritType varchar(1),
+	CONSTRAINT check_SpiritType CHECK (DetectionSpiritType IN ('B', 'M', 'F', 'W', 'A', 'E', 'P', 'T', 'R', 'G')),
+	IllusionSpiritType varchar(1),
+	CONSTRAINT check_SpiritType CHECK (IllusionSpiritType IN ('B', 'M', 'F', 'W', 'A', 'E', 'P', 'T', 'R', 'G')),
+	PRIMARY KEY (Name)
+);				 
 DROP TABLE IF EXISTS MAGIC_USER;
 CREATE TABLE MAGIC_USER
 (
