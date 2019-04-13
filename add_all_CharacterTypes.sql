@@ -76,7 +76,24 @@ CREATE TABLE TRADITION
 	IllusionSpiritType varchar(1),
 	CONSTRAINT check_SpiritType CHECK (IllusionSpiritType IN ('B', 'M', 'F', 'W', 'A', 'E', 'P', 'T', 'R', 'G')),
 	PRIMARY KEY (Name)
-);				 
+);
+CREATE TABLE RITUAL
+(
+	Name varchar(80),
+	Description varchar(1000),
+	PRIMARY KEY (Name)
+);
+DROP TABLE IF EXISTS RITUAL_LIST;
+CREATE TABLE RITUAL_LIST
+(
+	CharacterCreator_FK varchar(80),
+	Character_FK varchar(80),
+	RitualName_FK varchar(80),
+	PRIMARY KEY (CharacterCreator_FK, Character_FK, RitualName_FK),
+	FOREIGN KEY (CharacterCreator_FK) REFERENCES CHARACTERS(Username_FK),
+	FOREIGN KEY (Character_FK) REFERENCES CHARACTERS(Name),
+	FOREIGN KEY (RitualName_FK) REFERENCES RITUAL(Name)
+);				  
 DROP TABLE IF EXISTS MAGIC_USER;
 CREATE TABLE MAGIC_USER
 (
