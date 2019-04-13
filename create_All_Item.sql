@@ -18,10 +18,9 @@ CREATE TABLE ITEM -- make new table (or replace the one just dropped)
 	Availability	integer,					-- how hard to find item
 	Cost			integer,					-- amount needed to purchase
 	Legality		varchar(1),					-- Legal (L), Illegal (I), Requires License (R),
-	PRIMARY KEY (Name)
-	/* This doesn't seem to work with mySQL?
-	,CONSTRAINT check_Legal CHECK (Legality IN ('L', 'I', 'R')) -- only these values can be used
-	*/
+	PRIMARY KEY (Name),
+	/* Works if you put the , after Primary Key above*/
+	CONSTRAINT check_Legal CHECK (Legality IN ('L', 'I', 'R')) -- only these values can be used
 );
 
 DROP TABLE IF EXISTS MELEE;
