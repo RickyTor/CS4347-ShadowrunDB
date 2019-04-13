@@ -71,3 +71,24 @@ CREATE TABLE MAGIC_USER
 	-- FOREIGN KEY (Tradition_FK) REFERENCES TRADITION(Name),
 	FOREIGN KEY (Character_FK) REFERENCES CHARACTERS(Name)
 );
+DROP TABLE IF EXISTS METASAPIENT;
+CREATE TABLE METASAPIENT
+(
+	MagicRating			integer	CHECK(MagicRating >= 1),
+	CharacterCreator_FK	varchar(80) NOT NULL,
+	Character_FK 		varchar(80) NOT NULL,
+	PRIMARY KEY (Character_FK, CharacterCreator_FK),
+	FOREIGN KEY (CharacterCreator_FK) REFERENCES CHARACTERS(Username_FK),
+	FOREIGN KEY (Character_FK) REFERENCES CHARACTERS(Name)
+);
+
+DROP TABLE IF EXISTS TECHNOMANCER;
+CREATE TABLE TECHNOMANCER
+(
+	Resonance integer CHECK(Resonance >= 3 AND Resonance <= 6),
+	Submersion integer,
+	PersonaDescription varchar(500),
+	CharacterCreator_FK varchar(80), 
+	PRIMARY KEY (CharacterCreator_FK),
+	FOREIGN KEY (CHARACTERCreator_FK) REFERENCES CHARACTERS(Username_FK)
+);
