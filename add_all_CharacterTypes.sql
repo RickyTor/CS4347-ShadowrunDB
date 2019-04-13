@@ -92,3 +92,21 @@ CREATE TABLE TECHNOMANCER
 	PRIMARY KEY (CharacterCreator_FK),
 	FOREIGN KEY (CHARACTERCreator_FK) REFERENCES CHARACTERS(Username_FK)
 );
+					 
+DROP TABLE IF EXISTS PHYSICAL_CHARACTER;
+CREATE TABLE PHYSICAL_CHARACTER
+(
+	PhysicalDescription varchar(500),
+	Body 				integer CHECK(Body >= 1 AND Body <=12),
+	Agility 			integer CHECK(Agility >= 1 AND Agility <=9),
+	Reaction			integer CHECK(Reaction >= 1 AND Reaction <=9),
+	Strength 			integer CHECK(Strength >= 1 AND Strength <= 12),
+	PhysicalDamage 		integer,
+	StunDamage			integer,
+	OverflowDamage		integer,
+	CharacterCreator_FK varchar(80),
+	Character_FK 		varchar(80),
+	PRIMARY KEY(Character_FK, CharacterCreator_FK),
+	FOREIGN KEY (CharacterCreator_FK) References CHARACTERS(Username_FK),
+	FOREIGN KEY (Character_FK) References CHARACTERS(Name)
+);
