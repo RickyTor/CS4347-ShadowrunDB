@@ -1,15 +1,4 @@
 USE srdb; -- All queries will be used on "srdb" database (must be created first)
-DROP TABLE IF EXISTS INVENTORY; -- if table has already been made, it will be deleted
-CREATE TABLE INVENTORY -- make new table (or replace the one just dropped)
-(
-	Character_FK	varchar(80) 	NOT NULL, -- Owning character
-	User_FK			varchar(80)		NOT NULL, -- User of character
-	Item_FK			varchar(80) 	NOT NULL, -- Item name
-	PRIMARY KEY	(Character_FK, Item_FK, User_FK) -- inventory will link 1 character with N items
-	FOREIGN KEY (Character_FK) REFERENCES CHARACTERS(Name),
-	FOREIGN KEY (User_FK) REFERENCES CHARACTERS(Username_FK),
-	FOREIGN KEY (Item_FK) REFERENCES ITEM(Name)
-);
 
 DROP TABLE IF EXISTS ITEM; -- if table has already been made, it will be deleted
 CREATE TABLE ITEM -- make new table (or replace the one just dropped)
@@ -21,6 +10,18 @@ CREATE TABLE ITEM -- make new table (or replace the one just dropped)
 	Legality		varchar(1),					-- Legal (L), Illegal (I), Requires License (R),
 	PRIMARY KEY (Name),
 	CONSTRAINT check_Legal CHECK (Legality IN ('L', 'I', 'R')) -- only these values can be used
+);
+
+DROP TABLE IF EXISTS INVENTORY; -- if table has already been made, it will be deleted
+CREATE TABLE INVENTORY -- make new table (or replace the one just dropped)
+(
+	Character_FK	varchar(80) 	NOT NULL, -- Owning character
+	User_FK			varchar(80)		NOT NULL, -- User of character
+	Item_FK			varchar(80) 	NOT NULL, -- Item name
+	PRIMARY KEY	(Character_FK, Item_FK, User_FK), -- inventory will link 1 character with N items
+	FOREIGN KEY (Character_FK) REFERENCES CHARACTERS(Name),
+	FOREIGN KEY (User_FK) REFERENCES CHARACTERS(Username_FK),
+	FOREIGN KEY (Item_FK) REFERENCES ITEM(Name)
 );
 
 DROP TABLE IF EXISTS MELEE;
@@ -99,7 +100,7 @@ CREATE TABLE UNIQUE_ITEM
 	PRIMARY KEY (Item_FK, Character_FK, User_FK),
 	FOREIGN KEY (Character_FK) REFERENCES CHARACTERS(Name),
 	FOREIGN KEY (User_FK) REFERENCES CHARACTERS(Username_FK),
-	FOREIGN KEY (Item_FK) REFERENCES ITEM(Name);
+	FOREIGN KEY (Item_FK) REFERENCES ITEM(Name)
 );
 
 DROP TABLE IF EXISTS AUGMENTATION;
@@ -134,6 +135,20 @@ CREATE TABLE SUBITEM
 	PRIMARY KEY (Name)
 );
 
+DROP TABLE IF EXISTS CYBERDECK_MODEL;
+CREATE TABLE CYBERDECK_MODEL
+(
+	Name				varchar(80)		NOT NULL,
+	Legality			varchar(1),
+	Description			varchar(1000),				-- What the item does
+	Availability		integer,
+	Cost				integer,
+	Array				varchar(4),					-- 4 numbers for attack, sleaze, firewall, or data processing
+	CyberdeckRating		integer,
+	ProgramCapacity		integer,
+	PRIMARY KEY (Name)
+);
+
 DROP TABLE IF EXISTS PERSONAL_CYBERDECK; -- Inherits from Unique Item
 CREATE TABLE PERSONAL_CYBERDECK
 (
@@ -150,20 +165,6 @@ CREATE TABLE PERSONAL_CYBERDECK
 	FOREIGN KEY (Character_FK) REFERENCES CHARACTERS(Name),
 	FOREIGN KEY (User_FK) REFERENCES CHARACTERS(Username_FK),
 	FOREIGN KEY (ModelName_FK) REFERENCES CYBERDECK_MODEL(Name)
-);
-
-DROP TABLE IF EXISTS CYBERDECK_MODEL;
-CREATE TABLE CYBERDECK_MODEL
-(
-	Name				varchar(80)		NOT NULL,
-	Legality			varchar(1),
-	Description			varchar(1000),				-- What the item does
-	Availability		integer,
-	Cost				integer,
-	Array				varchar(4),					-- 4 numbers for attack, sleaze, firewall, or data processing
-	CyberdeckRating		integer,
-	ProgramCapacity		integer,
-	PRIMARY KEY (Name)
 );
 
 DROP TABLE IF EXISTS CONFIGURATOR;
