@@ -1,0 +1,1 @@
+SELECT AccessingUser_FK, Character_FK, COUNT(*) FROM ACCESSES GROUP BY AccessingUser_FK HAVING COUNT(*)>3;

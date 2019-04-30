@@ -1,0 +1,1 @@
+SELECT c.Name, c.UserName_FK, r.BlastRadius FROM CHARACTERS c JOIN INVENTORY i ON (c.UserName_FK=i.User_FK AND c.Name=i.Character_FK) JOIN RANGED r ON r.Name=i.Item_FK WHERE r.BlastRadius IS NOT NULL;
