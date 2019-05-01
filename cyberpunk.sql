@@ -99,13 +99,16 @@ CREATE TABLE TRADITION
 	IllusionSpiritType varchar(1),
 	CONSTRAINT check_SpiritType CHECK (IllusionSpiritType IN ('F','W','A','E','M','N','G','I','T','P')),
 	PRIMARY KEY (Name)
-);				 
+);	
+
+DROP TABLE IF EXISTS RITUAL;			 
 CREATE TABLE RITUAL
 (
 	Name varchar(80),
 	Description varchar(1000),
 	PRIMARY KEY (Name)
 );
+
 DROP TABLE IF EXISTS RITUAL_LIST;
 CREATE TABLE RITUAL_LIST
 (
