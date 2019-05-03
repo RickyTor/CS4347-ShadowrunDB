@@ -24,15 +24,15 @@ CREATE TABLE CHARACTERS
 	EdgeAvailable 	integer,
 	Essence 		float CHECK(Essence >= 0 AND Essence <= 6),
 	PriorityA 		varchar(1),
-	CONSTRAINT check_Priority CHECK (PriorityA IN ('R', 'A', 'M', 'S', 'N')),
+	CONSTRAINT check_PriorityA CHECK (PriorityA IN ('R', 'A', 'M', 'S', 'N')),
 	PriorityB 		varchar(1),
-	CONSTRAINT check_Priority CHECK (PriorityB IN ('R', 'A', 'M', 'S', 'N')),
+	CONSTRAINT check_PriorityB CHECK (PriorityB IN ('R', 'A', 'M', 'S', 'N')),
 	PriorityC 		varchar(1),
-	CONSTRAINT check_Priority CHECK (PriorityC IN ('R', 'A', 'M', 'S', 'N')),
+	CONSTRAINT check_PriorityC CHECK (PriorityC IN ('R', 'A', 'M', 'S', 'N')),
 	PriorityD 		varchar(1),
-	CONSTRAINT check_Priority CHECK (PriorityD IN ('R', 'A', 'M', 'S', 'N')),
+	CONSTRAINT check_PriorityD CHECK (PriorityD IN ('R', 'A', 'M', 'S', 'N')),
 	PriorityE 		varchar(1),
-	CONSTRAINT check_Priority CHECK (PriorityE IN ('R', 'A', 'M', 'S', 'N')),
+	CONSTRAINT check_PriorityE CHECK (PriorityE IN ('R', 'A', 'M', 'S', 'N')),
 	Username_FK 	varchar(80) NOT NULL,
 	Primary Key (Name, Username_FK),
 	Foreign Key (Username_FK) References USERS(Username)
@@ -89,15 +89,15 @@ CREATE TABLE TRADITION
 	DrainResistanceAttr varchar(1),
 	CONSTRAINT check_DrainResistAttr CHECK (DrainResistanceAttr IN ('L', 'I', 'C')),
 	CombatSpiritType varchar(1),
-	CONSTRAINT check_SpiritType CHECK (CombatSpiritType IN ('F','W','A','E','M','N','G','I','T','P')),
+	CONSTRAINT check_CSpiritType CHECK (CombatSpiritType IN ('F','W','A','E','M','N','G','I','T','P')),
 	HealthSpiritType varchar(1),
-	CONSTRAINT check_SpiritType CHECK (HealthSpiritType IN ('F','W','A','E','M','N','G','I','T','P')),
+	CONSTRAINT check_HSpiritType CHECK (HealthSpiritType IN ('F','W','A','E','M','N','G','I','T','P')),
 	ManipulationSpiritType varchar(1),
-	CONSTRAINT check_SpiritType CHECK (ManipulationSpiritType IN ('F','W','A','E','M','N','G','I','T','P')),
+	CONSTRAINT check_MSpiritType CHECK (ManipulationSpiritType IN ('F','W','A','E','M','N','G','I','T','P')),
 	DetectionSpiritType varchar(1),
-	CONSTRAINT check_SpiritType CHECK (DetectionSpiritType IN ('F','W','A','E','M','N','G','I','T','P')),
+	CONSTRAINT check_DSpiritType CHECK (DetectionSpiritType IN ('F','W','A','E','M','N','G','I','T','P')),
 	IllusionSpiritType varchar(1),
-	CONSTRAINT check_SpiritType CHECK (IllusionSpiritType IN ('F','W','A','E','M','N','G','I','T','P')),
+	CONSTRAINT check_ISpiritType CHECK (IllusionSpiritType IN ('F','W','A','E','M','N','G','I','T','P')),
 	PRIMARY KEY (Name)
 );	
 
@@ -250,7 +250,7 @@ CREATE TABLE ITEM -- make new table (or replace the one just dropped)
 	Cost			integer,					-- amount needed to purchase
 	Legality		varchar(1),					-- Legal (L), Illegal (F), Requires License (R),
 	PRIMARY KEY (Name),
-	CONSTRAINT check_Legal CHECK (Legality IN ('L', 'F', 'R')) -- only these values can be used
+	CONSTRAINT check_Item_Legal CHECK (Legality IN ('L', 'F', 'R')) -- only these values can be used
 );
 
 DROP TABLE IF EXISTS INVENTORY; -- if table has already been made, it will be deleted
@@ -273,9 +273,9 @@ CREATE TABLE MELEE
 	Availability	integer,					-- how hard to find item
 	Cost			integer,					-- amount needed to purchase
 	Legality		varchar(1),					-- Legal (L), Illegal (F), Requires License (R),
-	CONSTRAINT check_Legal CHECK (Legality IN ('L', 'F', 'R')),
+	CONSTRAINT check_Melee_Legal CHECK (Legality IN ('L', 'F', 'R')),
 	SkillUsed		varchar(1),
-	CONSTRAINT check_Skill CHECK (SkillUsed IN ('B','C','U','E')),
+	CONSTRAINT check_Melee_Skill CHECK (SkillUsed IN ('B','C','U','E')),
 	Damage			integer,
 	Accuracy		integer,
 	ArmorPiercing	integer,
@@ -291,9 +291,9 @@ CREATE TABLE RANGED
 	Availability	integer,					-- how hard to find item
 	Cost			integer,					-- amount needed to purchase
 	Legality		varchar(1),					-- Legal (L), Illegal (F), Requires License (R),
-	CONSTRAINT check_Legal CHECK (Legality IN ('L', 'F', 'R')),
+	CONSTRAINT check_Ranged_Legal CHECK (Legality IN ('L', 'F', 'R')),
 	SkillUsed		varchar(1),
-	CONSTRAINT check_Skill CHECK (SkillUsed IN ('A','L','P','R','G','H','E','T')),
+	CONSTRAINT check_Ranged_Skill CHECK (SkillUsed IN ('A','L','P','R','G','H','E','T')),
 	Damage			integer,
 	Accuracy		integer,
 	ArmorPiercing	integer,
@@ -312,7 +312,7 @@ CREATE TABLE DRONE
 (
 	Name			varchar(80)		NOT NULL,
 	Legality		varchar(1),
-	CONSTRAINT check_Legal CHECK (Legality IN ('L', 'F', 'R')),
+	CONSTRAINT check_Drone_Legal CHECK (Legality IN ('L', 'F', 'R')),
 	Description		varchar(1000),
 	Availability	integer,
 	Cost			integer,
@@ -386,7 +386,7 @@ CREATE TABLE SUBITEM
 (
 	Name			varchar(80)		NOT NULL,
 	Legality		varchar(1),
-	CONSTRAINT check_Legal CHECK (Legality IN ('L', 'F', 'R')),
+	CONSTRAINT check_Sub_Legal CHECK (Legality IN ('L', 'F', 'R')),
 	Description		varchar(1000),
 	Availability	integer,
 	Cost			integer,
@@ -400,7 +400,7 @@ CREATE TABLE CYBERDECK_MODEL
 (
 	Name				varchar(80)		NOT NULL,
 	Legality			varchar(1),
-	CONSTRAINT check_Legal CHECK (Legality IN ('L', 'F', 'R')),
+	CONSTRAINT check_CD_Legal CHECK (Legality IN ('L', 'F', 'R')),
 	Description			varchar(1000),				-- What the item does
 	Availability		integer,
 	Cost				integer,
@@ -427,6 +427,17 @@ CREATE TABLE PERSONAL_CYBERDECK
 	FOREIGN KEY (ModelName_FK) REFERENCES CYBERDECK_MODEL(Name)
 );
 
+DROP TABLE IF EXISTS DECK_CONFIGURATION;
+CREATE TABLE DECK_CONFIGURATION
+(
+	Number			integer			NOT NULL,		-- order in which configurator programs were added, start at 0 and increment		-- user that created character
+	Attack			integer, /*TODO: min is 1*/		-- Attack stat
+	Sleaze			integer, /*min is 1*/			-- Sleaze stat
+	Firewall		integer, /*min is 1*/			-- Firewall Stat, for defense
+	DataProcessing	integer, /*min is 1*/			-- Used for matrix initiative and actions
+	PRIMARY KEY (Number)
+);
+
 DROP TABLE IF EXISTS CONFIGURATOR;
 CREATE TABLE CONFIGURATOR
 (
@@ -442,16 +453,6 @@ CREATE TABLE CONFIGURATOR
 	FOREIGN KEY (Character_FK) REFERENCES PERSONAL_CYBERDECK(Character_FK)
 );
 
-DROP TABLE IF EXISTS DECK_CONFIGURATION;
-CREATE TABLE DECK_CONFIGURATION
-(
-	Number			integer			NOT NULL,		-- order in which configurator programs were added, start at 0 and increment		-- user that created character
-	Attack			integer, /*TODO: min is 1*/		-- Attack stat
-	Sleaze			integer, /*min is 1*/			-- Sleaze stat
-	Firewall		integer, /*min is 1*/			-- Firewall Stat, for defense
-	DataProcessing	integer, /*min is 1*/			-- Used for matrix initiative and actions
-	PRIMARY KEY (Number)
-);
 DROP TABLE IF EXISTS SUBITEM_LIST;
 CREATE TABLE SUBITEM_LIST
 (
