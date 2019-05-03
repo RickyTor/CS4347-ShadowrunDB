@@ -1,4 +1,4 @@
-SELECT Username, CHARACTERS.Name, ITEM.Name
+SELECT Username, CHARACTERS.Name, INVENTORY.item_fk, availability, cost, legality
 FROM USERS, CHARACTERS, INVENTORY, ITEM
-WHERE USERS.Username = CHARACTERS.Username_FK, CHARACTERS.Name = INVENTORY.Character_FK;
+WHERE USERS.Username = CHARACTERS.Username_FK AND CHARACTERS.Name = INVENTORY.Character_FK AND INVENTORY.item_fk = ITEM.name;
 
